@@ -1,5 +1,7 @@
 ---
-
+import "@/styles/globals.css"
+import { Button } from "@/components/ui/button"
+import { MyComp } from "@/components/Mycomp"
 ---
 
 <html lang="en">
@@ -11,6 +13,10 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<main class="text-2xl">
+			<h1 class="text-red-500">H1 element in an Astro file</h1>
+			<Button>Shadcn Button</Button>
+			<MyComp/>
+		</main>
 	</body>
 </html>
