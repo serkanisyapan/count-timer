@@ -1,7 +1,8 @@
 ---
 import "@/styles/globals.css"
-import { Button } from "@/components/ui/button"
-import { MyComp } from "@/components/Mycomp"
+import { Timer } from "@/components/Timer"
+import { DarkModeToggle } from "@/components/DarkModeToggle"
+import Navbar from "@/components/Navbar.astro"
 ---
 
 <html lang="en">
@@ -13,10 +14,8 @@ import { MyComp } from "@/components/Mycomp"
 		<title>Astro</title>
 	</head>
 	<body>
-		<main class="text-2xl">
-			<h1 class="text-red-500">H1 element in an Astro file</h1>
-			<Button>Shadcn Button</Button>
-			<MyComp/>
-		</main>
+		<Navbar/>
+		<Timer client:load/>
 	</body>
 </html>
+
