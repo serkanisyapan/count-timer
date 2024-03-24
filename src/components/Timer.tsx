@@ -3,6 +3,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { DatePicker } from "./DatePicker";
 import { EventTimeSelector } from "./EvenTimeSelector";
+import { TimezoneSelect } from "./TimezoneSelect";
 
 export function Timer() {
   const [timerName, setTimerName] = useState("Timer Event Name");
@@ -31,6 +32,10 @@ export function Timer() {
       <div className="grid w-full max-w-sm items-center gap-2">
         <Label htmlFor="event_time">Event Time</Label>
         <EventTimeSelector />
+      </div>
+      <div className="grid w-full max-w-sm items-center gap-2">
+        <Label htmlFor="event_time_zone">Time Zone</Label>
+        <TimezoneSelect />
       </div>
     </div>
   );
