@@ -1,41 +1,29 @@
-import { useState } from "react";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { DatePicker } from "./DatePicker";
-import { EventTimeSelector } from "./EvenTimeSelector";
-import { TimezoneSelect } from "./TimezoneSelect";
+import { useState, type ChangeEvent } from "react";
+import { TimerSettings } from "./TimerSettings";
 
 export function Timer() {
-  const [timerName, setTimerName] = useState("Timer Event Name");
+  const [timerName, setTimerName] = useState("");
 
-  function resetTimerNameOnFocus() {
-    if (timerName === "Timer Event Name") setTimerName("");
+  function handleTimerName(event: ChangeEvent<HTMLInputElement>) {
+    setTimerName(event.target.value);
   }
 
   return (
-    <div className="max-w-s flex flex-col gap-5 px-10 mt-7">
-      <div className="grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="event_name">Event Name</Label>
-        <Input
-          type="text"
-          id="event_name"
-          placeholder="Event Name"
-          onChange={(event) => setTimerName(event.target.value)}
-          onFocus={() => resetTimerNameOnFocus()}
-          value={timerName}
+    <div className="relative">
+      <div>
+        <TimerSettings
+          timerName={timerName}
+          handleTimerName={handleTimerName}
         />
       </div>
-      <div className="grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="date_picker">Event Date</Label>
-        <DatePicker />
-      </div>
-      <div className="grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="event_time">Event Time</Label>
-        <EventTimeSelector />
-      </div>
-      <div className="grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="event_time_zone">Time Zone</Label>
-        <TimezoneSelect />
+      <div className="absolute left-[45%] top-0">
+        {timerName.length > 0 ? (
+          <h2 className="text-3xl overflow-hidden text-ellipsis max-h-[70px] text-red-400 max-w-sm text-center">
+            {timerName}
+          </h2>
+        ) : (
+          <h2 className="text-3xl text-red-400">Event Name</h2>
+        )}
       </div>
     </div>
   );
