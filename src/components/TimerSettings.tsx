@@ -1,9 +1,10 @@
-import { type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { DatePicker } from "./DatePicker";
-import { EventTimeSelector } from "./EvenTimeSelector";
+import { EventTimeSelector } from "./EventTimeSelector";
 import { TimezoneSelect } from "./TimezoneSelect";
+import { Checkbox } from "./ui/checkbox";
 
 interface TimerSettingsProps {
   timerName: string;
@@ -12,6 +13,7 @@ interface TimerSettingsProps {
 
 export function TimerSettings(props: TimerSettingsProps) {
   const { timerName, handleTimerName } = props;
+  const [is24hoursTime, setIs24hoursTime] = useState(false);
   return (
     <div className="max-w-s flex flex-col gap-5 px-10 mt-7 justify-self-start">
       <div className="grid w-full max-w-sm items-center gap-2">
@@ -29,8 +31,20 @@ export function TimerSettings(props: TimerSettingsProps) {
         <DatePicker />
       </div>
       <div className="grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="event_time">Event Time</Label>
-        <EventTimeSelector />
+        <div className="flex items-center gap-5">
+          <Label htmlFor="event_time">Event Time</Label>
+          <div className="flex items-center space-x-1">
+            <Checkbox
+              id="hours_type"
+              onClick={() => setIs24hoursTime(!is24hoursTime)}
+              checked={is24hoursTime}
+            />
+            <Label htmlFor="hours_type" className="text-sm">
+              24 hrs clock
+            </Label>
+          </div>
+        </div>
+        <EventTimeSelector is24hoursTime={is24hoursTime} />
       </div>
       <div className="grid w-full max-w-sm items-center gap-2">
         <Label htmlFor="event_time_zone">Time Zone</Label>

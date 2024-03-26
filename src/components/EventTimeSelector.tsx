@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const twelveHourClock = [
+const twelveHoursClock = [
   "12 am",
   "1 am",
   "2 am",
@@ -32,7 +32,7 @@ const twelveHourClock = [
   "10 pm",
   "11 pm",
 ];
-const twentyFourHoursArray = [
+const twentyFourHoursClock = [
   "00",
   "01",
   "02",
@@ -67,16 +67,18 @@ function createMinsArray() {
   return minsArray;
 }
 
-export function EventTimeSelector() {
-  const minsArray = createMinsArray();
+export function EventTimeSelector(props: { is24hoursTime: boolean }) {
+  const eventHours = props.is24hoursTime
+    ? twentyFourHoursClock
+    : twelveHoursClock;
   return (
     <div className="flex flex-row gap-2">
       <Select>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="hrs" />
         </SelectTrigger>
-        <SelectContent>
-          {twelveHourClock.map((clock) => (
+        <SelectContent onChange={(event) => console.log(event)}>
+          {eventHours.map((clock) => (
             <SelectItem value={`${clock}`}>{clock}</SelectItem>
           ))}
         </SelectContent>
@@ -86,7 +88,7 @@ export function EventTimeSelector() {
           <SelectValue placeholder="mins" />
         </SelectTrigger>
         <SelectContent>
-          {minsArray.map((mins) => (
+          {createMinsArray().map((mins) => (
             <SelectItem value={`${mins}`}>{mins} min</SelectItem>
           ))}
         </SelectContent>
