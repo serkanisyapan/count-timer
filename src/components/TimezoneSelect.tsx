@@ -6,6 +6,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
+import type { ITimezone } from "react-timezone-select";
 
 const labelStyle = "original";
 const timezones = {
@@ -14,19 +16,27 @@ const timezones = {
 };
 
 export function TimezoneSelect() {
+  const [selectedTimezone, setSelectedTimezone] = useState<ITimezone>(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
   const { options, parseTimezone } = useTimezoneSelect({
     labelStyle,
     timezones,
   });
 
   return (
-    <Select>
+    <Select
+      onValueChange={(value) => setSelectedTimezone(value)}
+      defaultValue={parseTimezone(selectedTimezone).value}
+    >
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select a Timezone" />
       </SelectTrigger>
       <SelectContent>
         {options.map((timeZone) => (
-          <SelectItem value={`${timeZone.value}`}>{timeZone.label}</SelectItem>
+          <SelectItem key={timeZone.label} value={`${timeZone.value}`}>
+            {timeZone.label}
+          </SelectItem>
         ))}
       </SelectContent>
     </Select>

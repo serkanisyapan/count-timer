@@ -71,15 +71,18 @@ export function EventTimeSelector(props: { is24hoursTime: boolean }) {
   const eventHours = props.is24hoursTime
     ? twentyFourHoursClock
     : twelveHoursClock;
+
   return (
     <div className="flex flex-row gap-2">
       <Select>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="hrs" />
         </SelectTrigger>
-        <SelectContent onChange={(event) => console.log(event)}>
+        <SelectContent>
           {eventHours.map((clock) => (
-            <SelectItem value={`${clock}`}>{clock}</SelectItem>
+            <SelectItem key={clock} value={`${clock}`}>
+              {clock}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>
@@ -89,7 +92,9 @@ export function EventTimeSelector(props: { is24hoursTime: boolean }) {
         </SelectTrigger>
         <SelectContent>
           {createMinsArray().map((mins) => (
-            <SelectItem value={`${mins}`}>{mins} min</SelectItem>
+            <SelectItem key={mins} value={`${mins}`}>
+              {mins} min
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>
