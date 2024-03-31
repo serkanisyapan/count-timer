@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, useSyncExternalStore } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { DatePicker } from "./DatePicker";
@@ -10,10 +10,25 @@ interface TimerSettingsProps {
   timerName: string;
   handleTimerName: (event: ChangeEvent<HTMLInputElement>) => void;
 }
+interface EventTime {
+  hours: string;
+  mins: string;
+}
 
 export function TimerSettings(props: TimerSettingsProps) {
   const { timerName, handleTimerName } = props;
   const [is24hoursTime, setIs24hoursTime] = useState(false);
+  const [eventTime, setEventTime] = useState<EventTime>({
+    hours: "",
+    mins: "",
+  });
+
+  function handleEventTime(time: string, value: string) {
+    setEventTime((et) => {
+      return { ...et, [time]: value };
+    });
+  }
+
   return (
     <div className="max-w-s flex flex-col gap-5 px-10 mt-7 justify-self-start">
       <div className="grid w-full max-w-sm items-center gap-2">
@@ -44,7 +59,10 @@ export function TimerSettings(props: TimerSettingsProps) {
             </Label>
           </div>
         </div>
-        <EventTimeSelector is24hoursTime={is24hoursTime} />
+        <EventTimeSelector
+          handleEventTime={handleEventTime}
+          is24hoursTime={is24hoursTime}
+        />
       </div>
       <div className="grid w-full max-w-sm items-center gap-2">
         <Label htmlFor="event_time_zone">Time Zone</Label>
